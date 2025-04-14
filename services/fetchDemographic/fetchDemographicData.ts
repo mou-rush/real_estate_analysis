@@ -1,6 +1,10 @@
 import { IDemographicArea } from "./fetchDemographicDataTypes";
 
-export const fetchDemographicData = async (): Promise<IDemographicArea[]> => {
+export const fetchDemographicData = async (
+  _lat: number,
+  _lng: number,
+  _radius: number
+): Promise<IDemographicArea[]> => {
   return [
     {
       id: "d1",

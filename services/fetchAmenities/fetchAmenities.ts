@@ -1,6 +1,10 @@
 import { IAmenityCategory } from "./fetchAmenitiesTypes";
 
-export const fetchAmenities = async (): Promise<IAmenityCategory[]> => {
+export const fetchAmenities = async (
+  _lat: number,
+  _lng: number,
+  _radius: number
+): Promise<IAmenityCategory[]> => {
   return [
     {
       type: "Food & Dining",

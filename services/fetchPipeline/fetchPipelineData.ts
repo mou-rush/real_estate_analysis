@@ -1,6 +1,10 @@
 import { IPipelinePoint } from "./fetchPipelineDataTypes";
 
-export const fetchPipelineData = async (): Promise<IPipelinePoint[]> => {
+export const fetchPipelineData = async (
+  _lat: number,
+  _lng: number,
+  _radius: number
+): Promise<IPipelinePoint[]> => {
   return [
     {
       id: "p1",

@@ -1,6 +1,10 @@
 import { ITransitPoint } from "./fetchTransitDataTypes";
 
-export const fetchTransitData = async (): Promise<ITransitPoint[]> => {
+export const fetchTransitData = async (
+  _lat: number,
+  _lng: number,
+  _radius: number
+): Promise<ITransitPoint[]> => {
   return [
     {
       id: "t1",

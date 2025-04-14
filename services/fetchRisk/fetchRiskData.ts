@@ -1,7 +1,11 @@
 import { IFloodZone } from "../genericTypes/genericTypes";
 import { IRiskPoint } from "./fetchRiskDataTypes";
 
-export const fetchRiskData = async (): Promise<{
+export const fetchRiskData = async (
+  _lat: number,
+  _lng: number,
+  _radius: number
+): Promise<{
   points: IRiskPoint[];
   floodZones: IFloodZone[];
 }> => {

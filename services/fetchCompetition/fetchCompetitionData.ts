@@ -1,6 +1,10 @@
 import { ICompetitionPoint } from "./fetchCompetitionDataTypes";
 
-export const fetchCompetitionData = async (): Promise<ICompetitionPoint[]> => {
+export const fetchCompetitionData = async (
+  _lat: number,
+  _lng: number,
+  _radius: number
+): Promise<ICompetitionPoint[]> => {
   return [
     {
       id: "c1",
