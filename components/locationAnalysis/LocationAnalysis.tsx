@@ -74,9 +74,11 @@ const LocationAnalysis: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       <main className="container mx-auto px-4 py-6">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Location Analysis</h1>
-          <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
+          <h1 className="text-xl md:text-2xl font-bold text-center md:text-left">
+            Location Analysis
+          </h1>
+          <div className="w-full md:w-auto flex justify-end">
             <ExportButtons
               property={property}
               locationMetrics={locationMetrics}
@@ -87,9 +89,10 @@ const LocationAnalysis: React.FC = () => {
         </div>
 
         <div className="border-t border-gray-200 pt-6">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
+            {/* Property Info */}
             <div>
-              <h2 className="text-xl font-bold">
+              <h2 className="text-lg md:text-xl font-bold">
                 {property.name}, {property.address}
               </h2>
               <div className="text-sm text-gray-600 mt-1">
@@ -97,29 +100,30 @@ const LocationAnalysis: React.FC = () => {
                 {property.squareFootage.toLocaleString()} sqft
               </div>
             </div>
-            <div className="flex space-x-2">
+
+            <div className="flex flex-wrap md:flex-nowrap gap-2">
               <Button
                 variant={activeTab === "map" ? "default" : "outline"}
-                className={`text-xs px-4 py-2 rounded flex items-center cursor-pointer ${
+                className={`text-xs px-4 py-2 rounded flex items-center ${
                   activeTab === "map"
                     ? "bg-black text-white"
                     : "border border-gray-300"
                 }`}
                 onClick={() => setActiveTab("map")}
               >
-                <MapIcon className="mr-2 h-4 w-4 cursor-pointer" />
+                <MapIcon className="mr-2 h-4 w-4" />
                 Map View
               </Button>
               <Button
                 variant={activeTab === "data" ? "default" : "outline"}
-                className={`text-xs px-4 py-2 rounded flex items-center cursor-pointer ${
+                className={`text-xs px-4 py-2 rounded flex items-center ${
                   activeTab === "data"
                     ? "bg-black text-white"
                     : "border border-gray-300"
                 }`}
                 onClick={() => setActiveTab("data")}
               >
-                <List className="mr-2 h-4 w-4 cursor-pointer" />
+                <List className="mr-2 h-4 w-4" />
                 Data View
               </Button>
             </div>
@@ -128,82 +132,38 @@ const LocationAnalysis: React.FC = () => {
           {/* Map View */}
           {activeTab === "map" && (
             <>
-              <div className="flex mb-4 overflow-x-auto pb-2">
-                <Button
-                  variant={selectedMetric === "all" ? "default" : "outline"}
-                  className={`text-xs px-3 py-1 mr-2 rounded-full cursor-pointer ${
-                    selectedMetric === "all"
-                      ? "bg-black text-white"
-                      : "border border-gray-300"
-                  }`}
-                  onClick={() => setSelectedMetric("all")}
-                >
-                  All Layers
-                </Button>
-                <Button
-                  variant={selectedMetric === "transit" ? "default" : "outline"}
-                  className={`text-xs px-3 py-1 mr-2 rounded-full cursor-pointer ${
-                    selectedMetric === "transit"
-                      ? "bg-black text-white"
-                      : "border border-gray-300"
-                  }`}
-                  onClick={() => setSelectedMetric("transit")}
-                >
-                  Transit
-                </Button>
-                <Button
-                  variant={
-                    selectedMetric === "competition" ? "default" : "outline"
-                  }
-                  className={`text-xs px-3 py-1 mr-2 rounded-full cursor-pointer ${
-                    selectedMetric === "competition"
-                      ? "bg-black text-white"
-                      : "border border-gray-300"
-                  }`}
-                  onClick={() => setSelectedMetric("competition")}
-                >
-                  Competition
-                </Button>
-                <Button
-                  variant={
-                    selectedMetric === "demographics" ? "default" : "outline"
-                  }
-                  className={`text-xs px-3 py-1 mr-2 rounded-full cursor-pointer ${
-                    selectedMetric === "demographics"
-                      ? "bg-black text-white"
-                      : "border border-gray-300"
-                  }`}
-                  onClick={() => setSelectedMetric("demographics")}
-                >
-                  Demographics
-                </Button>
-                <Button
-                  variant={selectedMetric === "risks" ? "default" : "outline"}
-                  className={`text-xs px-3 py-1 mr-2 rounded-full cursor-pointer ${
-                    selectedMetric === "risks"
-                      ? "bg-black text-white"
-                      : "border border-gray-300"
-                  }`}
-                  onClick={() => setSelectedMetric("risks")}
-                >
-                  Risk Factors
-                </Button>
-                <Button
-                  variant={
-                    selectedMetric === "pipeline" ? "default" : "outline"
-                  }
-                  className={`text-xs px-3 py-1 mr-2 rounded-full cursor-pointer ${
-                    selectedMetric === "pipeline"
-                      ? "bg-black text-white"
-                      : "border border-gray-300"
-                  }`}
-                  onClick={() => setSelectedMetric("pipeline")}
-                >
-                  Supply Pipeline
-                </Button>
+              <div className="flex flex-wrap md:flex-nowrap gap-2 mb-4 overflow-x-auto pb-2 -mx-2 px-2">
+                {[
+                  { key: "all" as IMapLayerType, label: "All Layers" },
+                  { key: "transit" as IMapLayerType, label: "Transit" },
+                  { key: "competition" as IMapLayerType, label: "Competition" },
+                  {
+                    key: "demographics" as IMapLayerType,
+                    label: "Demographics",
+                  },
+                  { key: "risks" as IMapLayerType, label: "Risk Factors" },
+                  {
+                    key: "pipeline" as IMapLayerType,
+                    label: "Supply Pipeline",
+                  },
+                ].map(({ key, label }) => (
+                  <Button
+                    key={key}
+                    variant={selectedMetric === key ? "default" : "outline"}
+                    className={`text-xs px-3 py-1 rounded-full cursor-pointer whitespace-nowrap ${
+                      selectedMetric === key
+                        ? "bg-black text-white"
+                        : "border border-gray-300"
+                    }`}
+                    onClick={() => setSelectedMetric(key)}
+                  >
+                    {label}
+                  </Button>
+                ))}
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {/* Map and Legend */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
                 <div className="md:col-span-3">
                   <div className="border border-gray-200 rounded-lg overflow-hidden">
                     <LocationMap

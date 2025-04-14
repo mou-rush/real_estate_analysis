@@ -8,32 +8,20 @@ interface BenchmarkTableProps {
 const BenchmarkTable: FC<BenchmarkTableProps> = ({ benchmarks }) => {
   return (
     <div className="border border-gray-200 rounded-lg overflow-hidden">
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
+      <div className="w-full overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200 text-sm">
           <thead className="bg-gray-50">
             <tr>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
+              <th className="px-4 py-3 text-left font-medium text-gray-500 uppercase whitespace-nowrap">
                 Metric
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
+              <th className="px-4 py-3 text-left font-medium text-gray-500 uppercase whitespace-nowrap">
                 Property Value
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
+              <th className="px-4 py-3 text-left font-medium text-gray-500 uppercase whitespace-nowrap">
                 Submarket Average
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
+              <th className="px-4 py-3 text-left font-medium text-gray-500 uppercase whitespace-nowrap">
                 Variance
               </th>
             </tr>
@@ -41,17 +29,17 @@ const BenchmarkTable: FC<BenchmarkTableProps> = ({ benchmarks }) => {
           <tbody className="bg-white divide-y divide-gray-200">
             {benchmarks.map((benchmark, index) => (
               <tr key={index}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="px-4 py-3 whitespace-nowrap font-medium text-gray-900">
                   {benchmark.metric}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-4 py-3 whitespace-nowrap text-gray-700">
                   {benchmark.propertyValue}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-4 py-3 whitespace-nowrap text-gray-700">
                   {benchmark.submarketAvg}
                 </td>
                 <td
-                  className={`px-6 py-4 whitespace-nowrap text-sm ${
+                  className={`px-4 py-3 whitespace-nowrap font-semibold ${
                     benchmark.isPositive ? "text-green-500" : "text-red-500"
                   }`}
                 >
