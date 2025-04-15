@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, FC } from "react";
-import { FileDown, Download } from "lucide-react";
+import { FileDown, Download, ImageDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   exportToPDF,
@@ -74,7 +74,7 @@ const ExportButtons: FC<ExportButtonsProps> = ({
         onClick={() => exportCurrentMapView(`${property.name}_Map`)}
         disabled={isExporting}
       >
-        <FileDown className="mr-2 h-4 w-4" />
+        <ImageDown className="mr-2 h-4 w-4" />
         {isExporting ? "Exporting..." : "Export Map Only"}
       </Button>
 
