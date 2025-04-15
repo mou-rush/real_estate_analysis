@@ -114,7 +114,7 @@ const LocationAnalysis: React.FC = () => {
             <div className="flex flex-wrap md:flex-nowrap gap-2">
               <Button
                 variant={activeTab === "map" ? "default" : "outline"}
-                className={`text-xs px-4 py-2 rounded flex items-center ${
+                className={`text-xs px-4 py-2 rounded flex items-center cursor-pointer ${
                   activeTab === "map"
                     ? "bg-black text-white"
                     : "border border-gray-300"
@@ -126,7 +126,7 @@ const LocationAnalysis: React.FC = () => {
               </Button>
               <Button
                 variant={activeTab === "data" ? "default" : "outline"}
-                className={`text-xs px-4 py-2 rounded flex items-center ${
+                className={`text-xs px-4 py-2 rounded flex items-center cursor-pointer ${
                   activeTab === "data"
                     ? "bg-black text-white"
                     : "border border-gray-300"

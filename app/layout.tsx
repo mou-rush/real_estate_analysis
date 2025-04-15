@@ -18,6 +18,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Real Estate Analysis Tool",
   description: "Property analysis and deal tracking platform",
+  icons: {
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      // { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+  },
 };
 
 export default function RootLayout({

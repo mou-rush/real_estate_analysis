@@ -19,8 +19,10 @@ export default function DealOverview() {
   return (
     <div className="min-h-screen bg-white">
       <main className="container mx-auto px-4 py-6">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Deal Overview</h1>
+        <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold text-center mb-4 md:mb-0">
+            Deal Overview
+          </h1>
           <UnderwritingModelSelector modelName="Industrial.Template.v2.4.xlsx" />
         </div>
         <div className="border-t border-gray-200 pt-6">
