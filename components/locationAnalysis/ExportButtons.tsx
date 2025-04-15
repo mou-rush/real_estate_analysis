@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, FC } from "react";
 import { FileDown, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";

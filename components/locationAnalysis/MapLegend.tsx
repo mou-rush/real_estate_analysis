@@ -1,3 +1,4 @@
+"use client";
 import React, { FC } from "react";
 import { Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";

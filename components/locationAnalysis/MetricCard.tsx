@@ -1,3 +1,4 @@
+"use client";
 import React, { FC } from "react";
 import { formatTrend } from "@/lib/utils";
 import { ILocationMetric } from "@/services/fetchLocationMetrics/fetchLocationMetricsTypes";

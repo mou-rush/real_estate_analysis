@@ -1,3 +1,4 @@
+"use client";
 import React, { FC } from "react";
 import MetricCard from "@/components/locationAnalysis/MetricCard";
 import { ILocationDataSummary } from "@/services/fetchLocationMetrics/fetchLocationMetricsTypes";
