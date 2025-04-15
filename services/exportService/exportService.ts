@@ -8,7 +8,11 @@ import {
   ExportData,
 } from "@/services/exportService/exportServiceTypes";
 
+const isClient = typeof window !== "undefined";
+
 export const exportToPDF = async (data: ExportData): Promise<void> => {
+  if (!isClient) return;
+
   try {
     const loadingDiv = document.createElement("div");
     loadingDiv.style.position = "fixed";
@@ -23,8 +27,9 @@ export const exportToPDF = async (data: ExportData): Promise<void> => {
     loadingDiv.style.zIndex = "9999";
     loadingDiv.innerHTML = "<div>Generating PDF... Please wait</div>";
     document.body.appendChild(loadingDiv);
+
     let mapCenter, mapZoom;
-    if (window.leafletMap) {
+    if (isClient && window.leafletMap) {
       mapCenter = window.leafletMap.getCenter();
       mapZoom = window.leafletMap.getZoom();
 
@@ -55,12 +60,14 @@ export const exportToPDF = async (data: ExportData): Promise<void> => {
     );
 
     try {
+      if (!isClient) throw new Error("Not running in client environment");
+
       const mapElement = document.getElementById("location-map-container");
       if (!mapElement) {
         throw new Error("Map container element not found");
       }
 
-      if (window.leafletMap) {
+      if (isClient && window.leafletMap) {
         const mapPane = window.leafletMap.getPanes().mapPane;
         if (mapPane) {
           mapPane.style.transition = "none";
@@ -104,7 +111,7 @@ export const exportToPDF = async (data: ExportData): Promise<void> => {
       const mapImage = canvas.toDataURL("image/png");
       pdf.addImage(mapImage, "PNG", 14, 45, width - 28, 80);
 
-      if (window.leafletMap) {
+      if (isClient && window.leafletMap) {
         const mapPane = window.leafletMap.getPanes().mapPane;
         if (mapPane) {
           mapPane.style.transition = "";
@@ -123,6 +130,8 @@ export const exportToPDF = async (data: ExportData): Promise<void> => {
       console.error("Failed to capture map image with html2canvas:", mapError);
 
       try {
+        if (!isClient) throw new Error("Not running in client environment");
+
         const mapElement = document.getElementById("location-map-container");
         if (!mapElement) {
           throw new Error("Map container element not found");
@@ -195,19 +204,27 @@ export const exportToPDF = async (data: ExportData): Promise<void> => {
       `${data.property.name.replace(/\s+/g, "_")}_Location_Analysis.pdf`
     );
 
-    document.body.removeChild(loadingDiv);
+    if (isClient) {
+      document.body.removeChild(loadingDiv);
+    }
   } catch (error) {
     console.error("Error generating PDF:", error);
 
-    const loadingDiv = document.querySelector('div[style*="position: fixed"]');
-    if (loadingDiv && loadingDiv.parentNode) {
-      loadingDiv.parentNode.removeChild(loadingDiv);
+    if (isClient) {
+      const loadingDiv = document.querySelector(
+        'div[style*="position: fixed"]'
+      );
+      if (loadingDiv?.parentNode) {
+        loadingDiv.parentNode.removeChild(loadingDiv);
+      }
     }
     throw new Error("Failed to generate PDF report");
   }
 };
 
 export const exportMapAsImage = async (): Promise<string> => {
+  if (!isClient) return "";
+
   try {
     const mapElement = document.getElementById("location-map-container");
     if (!mapElement) {
@@ -215,7 +232,7 @@ export const exportMapAsImage = async (): Promise<string> => {
     }
 
     let mapCenter, mapZoom;
-    if (window.leafletMap) {
+    if (isClient && window.leafletMap) {
       /* Storing current view parameters */
       mapCenter = window.leafletMap.getCenter();
       mapZoom = window.leafletMap.getZoom();
@@ -226,7 +243,7 @@ export const exportMapAsImage = async (): Promise<string> => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
-    if (window.leafletMap) {
+    if (isClient && window.leafletMap) {
       const mapPane = window.leafletMap.getPanes().mapPane;
       if (mapPane) {
         mapPane.style.transition = "none";
@@ -247,7 +264,7 @@ export const exportMapAsImage = async (): Promise<string> => {
       },
     });
 
-    if (window.leafletMap) {
+    if (isClient && window.leafletMap) {
       const mapPane = window.leafletMap.getPanes().mapPane;
       if (mapPane) {
         mapPane.style.transition = "";
@@ -264,14 +281,19 @@ export const exportMapAsImage = async (): Promise<string> => {
 export const exportCurrentMapView = async (
   fileName: string = "map-export"
 ): Promise<void> => {
+  if (!isClient) return;
+
   try {
     const mapImageData = await exportMapAsImage();
-    const link = document.createElement("a");
-    link.href = mapImageData;
-    link.download = `${fileName.replace(/\s+/g, "_")}.png`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+
+    if (isClient) {
+      const link = document.createElement("a");
+      link.href = mapImageData;
+      link.download = `${fileName.replace(/\s+/g, "_")}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
 
     return Promise.resolve();
   } catch (error) {
@@ -281,6 +303,8 @@ export const exportCurrentMapView = async (
 };
 
 export const exportToExcel = (data: ExportData): void => {
+  if (!isClient) return;
+
   try {
     const wb = XLSX.utils.book_new();
 

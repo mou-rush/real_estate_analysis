@@ -30,6 +30,7 @@ const LocationAnalysis: React.FC = () => {
     benchmarks,
     amenities,
   } = useLocationData();
+
   const ExportButtons = dynamic(
     () => import("@/components/locationAnalysis/ExportButtons"),
     { ssr: false }
@@ -67,7 +68,11 @@ const LocationAnalysis: React.FC = () => {
           <Button
             variant="default"
             className="bg-black text-white text-xs px-4 py-2 rounded cursor-pointer"
-            onClick={() => window.location.reload()}
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                window.location.reload();
+              }
+            }}
           >
             Retry
           </Button>
