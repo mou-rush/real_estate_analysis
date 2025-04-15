@@ -1,5 +1,12 @@
 "use client";
-import DealOverview from "@/components/overview/DealOverview";
+import dynamic from "next/dynamic";
+
+const DealOverview = dynamic(
+  () => import("@/components/overview/DealOverview"),
+  {
+    ssr: false,
+  }
+);
 
 export default function DealOverviewPage() {
   return <DealOverview />;
