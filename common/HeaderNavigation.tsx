@@ -23,9 +23,7 @@ export const HeaderNavigation = ({ navItems }: HeaderNavigationProps) => {
         <div className="w-full md:w-auto flex justify-center md:justify-start">
           <nav className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-6">
             {navItems.map((item, index) => {
-              const isActive =
-                pathname === item.href ||
-                (pathname === "/" && item.href === "/deal-overview");
+              const isActive = pathname === item.href;
 
               return (
                 <Link

@@ -8,7 +8,8 @@ import MetricsSection from "@/components/locationAnalysis/MetricsSection";
 import BenchmarkTable from "@/components/locationAnalysis/BenchMarkTable";
 import { IMapLayerType } from "@/services/genericTypes/genericTypes";
 import { useLocationData } from "@/hooks/useLocationData";
-import ExportButtons from "@/components/locationAnalysis/ExportButtons";
+import dynamic from "next/dynamic";
+
 import Image from "next/image";
 
 const LocationAnalysis: React.FC = () => {
@@ -29,7 +30,11 @@ const LocationAnalysis: React.FC = () => {
     benchmarks,
     amenities,
   } = useLocationData();
-  console.log("transitPoints1", transitPoints);
+  const ExportButtons = dynamic(
+    () => import("@/components/locationAnalysis/ExportButtons"),
+    { ssr: false }
+  );
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-white flex justify-center items-center">
