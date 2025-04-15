@@ -9,32 +9,29 @@ import {
   LayerGroup,
   useMap,
 } from "react-leaflet";
-import L from "leaflet";
+
 import "leaflet/dist/leaflet.css";
 import {
   IFloodZone,
   IMapLayerType,
 } from "@/services/genericTypes/genericTypes";
-import {
-  createCustomIcon,
-  getFloodZoneColor,
-  getRiskSeverityColor,
-} from "@/lib/utils";
+
 import { ITransitPoint } from "@/services/fetchTransit/fetchTransitDataTypes";
 import { ICompetitionPoint } from "@/services/fetchCompetition/fetchCompetitionDataTypes";
 import { IDemographicArea } from "@/services/fetchDemographic/fetchDemographicDataTypes";
 import { IPipelinePoint } from "@/services/fetchPipeline/fetchPipelineDataTypes";
 import { IPropertyData } from "@/services/fetchProperty/fetchPropertyDataTypes";
 import { IRiskPoint } from "@/services/fetchRisk/fetchRiskDataTypes";
-
-const DefaultIcon = L.icon({
-  iconUrl: "/marker-icon.png",
-  shadowUrl: "/marker-shadow.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
-});
+import {
+  PropertyIcon,
+  TransitIcon,
+  CompetitionIcon,
+  PipelineIcon,
+  createCustomIcon,
+  getRiskSeverityColor,
+  getFloodZoneColor,
+  addMarkerStyles,
+} from "@/icons/mapIcons/mapIcons";
 
 interface LocationMapProps {
   property: IPropertyData;
@@ -73,7 +70,9 @@ const LocationMap: React.FC<LocationMapProps> = ({
     pipeline: true,
     demographics: true,
   });
-
+  useEffect(() => {
+    addMarkerStyles();
+  }, []);
   useEffect(() => {
     if (selectedLayer === "all") {
       setMapLayers({
@@ -102,7 +101,6 @@ const LocationMap: React.FC<LocationMapProps> = ({
       style={{ height: "600px", width: "100%" }}
       scrollWheelZoom={true}
     >
-      {/* <GetMapInstance /> */}
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -111,7 +109,7 @@ const LocationMap: React.FC<LocationMapProps> = ({
       <MapUpdater selectedLayer={selectedLayer} />
 
       {/* Property Marker */}
-      <Marker position={property.position} icon={DefaultIcon}>
+      <Marker position={property.position} icon={PropertyIcon}>
         <Popup>
           <div className="text-sm">
             <strong>
@@ -140,7 +138,7 @@ const LocationMap: React.FC<LocationMapProps> = ({
             <Marker
               key={`transit-${point.id}`}
               position={point.position}
-              icon={createCustomIcon("#3b82f6")} // blue
+              icon={TransitIcon}
             >
               <Popup>
                 <div className="text-sm">
@@ -167,7 +165,7 @@ const LocationMap: React.FC<LocationMapProps> = ({
             <Marker
               key={`competition-${point.id}`}
               position={point.position}
-              icon={createCustomIcon("#f97316")} // orange
+              icon={CompetitionIcon}
             >
               <Popup>
                 <div className="text-sm">
@@ -202,7 +200,7 @@ const LocationMap: React.FC<LocationMapProps> = ({
             <Marker
               key={`pipeline-${point.id}`}
               position={point.position}
-              icon={createCustomIcon("#facc15")} // yellow
+              icon={PipelineIcon}
             >
               <Popup>
                 <div className="text-sm">
