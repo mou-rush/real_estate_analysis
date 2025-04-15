@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { IMapLayerType } from "@/services/genericTypes/genericTypes";
@@ -7,7 +7,7 @@ interface MapLegendProps {
   selectedLayer: IMapLayerType;
 }
 
-const MapLegend: React.FC<MapLegendProps> = ({ selectedLayer }) => {
+const MapLegend: FC<MapLegendProps> = ({ selectedLayer }) => {
   const showAll = selectedLayer === "all";
 
   return (

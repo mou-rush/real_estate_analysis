@@ -12,10 +12,10 @@ type DealSummaryProps = {
 
 export const DealSummary = ({ summary, assetData }: DealSummaryProps) => {
   return (
-    <div className="mt-8">
-      <h3 className="text-lg font-semibold mb-3">Deal Summary</h3>
+    <div className="mt-8 border-t border-gray-200 ">
+      <h3 className="text-lg font-semibold mt-3">Deal Summary</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-2 border border-gray-200 rounded-lg p-4">
+        <div className="md:col-span-2 border-r border-gray-200  p-4">
           <p className="text-sm">{summary}</p>
         </div>
         <div className="flex items-center justify-center">

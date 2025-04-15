@@ -23,7 +23,7 @@ export const assetData = [
 
 // Deal summary
 export const dealSummary =
-  "280 Richards, fully leased to Amazon, aligns with HUSPP's strategy of acquiring prime logistics assets in Brooklyn's high-demand Red Hook submarket. With 13 years remaining on the lease and 3% annual rent escalations, it offers stable, long-term cash flow. While single-tenant exposure is a risk, Amazon's investment-grade rating and renewal options enhance its resilience, making it a strong addition to HUSPP's portfolio.";
+  "280 Richards, fully leased to Amazon, aligns with HUSPP's strategy of acquiring prime logistics assets in Brooklyn's high-demand Red Hook submarket. With 13 years remaining on the lease and 3% annual rent escalations, it offers stable, long-term cash flow. While single-tenant exposure is a risk, Amazon's investment-grade rating and renewal options enhance its resilience, making it a strong addition to HUSPP's portfolio.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. ";
 
 // Personalized insights
 export const insights = [
